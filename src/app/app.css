@@ -1,0 +1,22 @@
+/* Gradiente personalizado para el fondo (ya deberías tener esto) */
+.bg-gradient {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* * NUEVO: Estilo para el header
+ * Blanco semi-transparente con efecto 'frosted glass' 
+ */
+.app-header {
+  background-color: rgba(255, 255, 255, 0.7); /* Blanco con 70% de opacidad */
+  backdrop-filter: blur(5px); /* El efecto de desenfoque */
+  -webkit-backdrop-filter: blur(5px); /* Para compatibilidad con Safari */
+}
+
+/* * NUEVO: Estilo para el footer
+ * Oscuro semi-transparente con efecto 'frosted glass'
+ */
+.app-footer {
+  background-color: rgba(0, 0, 0, 0.2); /* Negro con 20% de opacidad */
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}

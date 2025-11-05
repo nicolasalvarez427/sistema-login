@@ -1,1 +1,203 @@
-<p>panel-admin works!</p>
+<div class="container-fluid">
+  <div class="card shadow-lg border-0 rounded-4 admin-panel">
+    <div class="card-header bg-transparent border-bottom pb-3">
+      <h2 class="card-title h3 text-dark mb-3">{{ welcomeTitle() }}</h2>
+      <div class="d-flex flex-wrap gap-3">
+        <span class="text-muted">🕒 Último acceso: {{ formattedLastLogin() }}</span>
+        @if (notifications() > 0) {
+          <span class="badge bg-warning text-dark rounded-pill">🔔 {{ notifications() }} notificaciones</span>
+        }
+      </div>
+    </div>
+
+    <div class="card-body p-4">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="nav flex-column nav-pills" role="tablist">
+            <button 
+              class="nav-link text-start mb-2"
+              [class.active]="activeSection() === 'dashboard'"
+              (click)="changeSection('dashboard')"
+            >
+              📊 Dashboard
+            </button>
+            <button 
+              class="nav-link text-start mb-2"
+              [class.active]="activeSection() === 'users'"
+              (click)="changeSection('users')"
+            >
+              👥 Usuarios
+            </button>
+            <button 
+              class="nav-link text-start mb-2"
+              [class.active]="activeSection() === 'settings'"
+              (click)="changeSection('settings')"
+            >
+              ⚙️ Configuración
+            </button>
+          </div>
+        </div>
+
+        <div class="col-md-9">
+          <div class="mb-4">
+            <h3 class="h4 text-dark">{{ sectionTitle() }}</h3>
+          </div>
+
+          <div class="section-content">
+            @switch (activeSection()) {
+            @case ('dashboard') {
+              <div class="row g-4 mb-4">
+                <div class="col-md-6 col-lg-3">
+                  <div class="card bg-primary text-white h-100">
+                    <div class="card-body text-center">
+                      <h5 class="card-title">👥 Usuarios Activos</h5>
+                      <h2 class="display-6">1,234</h2>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                  <div class="card bg-success text-white h-100">
+                    <div class="card-body text-center">
+                      <h5 class="card-title">📈 Ventas del Mes</h5>
+                      <h2 class="display-6">$45,678</h2>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                  <div class="card bg-info text-white h-100">
+                    <div class="card-body text-center">
+                      <h5 class="card-title">🎯 Conversión</h5>
+                      <h2 class="display-6">12.5%</h2>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                  <div class="card bg-warning text-dark h-100">
+                    <div class="card-body text-center">
+                      <h5 class="card-title">⭐ Satisfacción</h5>
+                      <h2 class="display-6">4.8/5</h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="d-flex gap-3 flex-wrap">
+                <app-boton-personalizado
+                  texto="📊 Generar Reporte"
+                  variante="primary"
+                  (click)="performAction('Generar Reporte')"
+                ></app-boton-personalizado>
+                
+                <app-boton-personalizado
+                  texto="📧 Enviar Resumen"
+                  variante="secondary"
+                  (click)="performAction('Enviar Resumen')"
+                ></app-boton-personalizado>
+              </div>
+            }
+            
+            @case ('users') {
+              <div class="table-responsive mb-4">
+                <table class="table table-hover">
+                  <thead class="table-dark">
+                    <tr>
+                      <th>Usuario</th>
+                      <th>Email</th>
+                      <th>Estado</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>👤 Juan Pérez</td>
+                      <td>juan@email.com</td>
+                      <td><span class="badge bg-success">✅ Activo</span></td>
+                      <td>
+                        <button class="btn btn-sm btn-outline-primary">✏️ Editar</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>👤 María García</td>
+                      <td>maria@email.com</td>
+                      <td><span class="badge bg-danger">❌ Inactivo</span></td>
+                      <td>
+                        <button class="btn btn-sm btn-outline-primary">✏️ Editar</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              
+              <div class="mb-3">
+                <app-boton-personalizado
+                  texto="➕ Nuevo Usuario"
+                  variante="primary"
+                  (click)="performAction('Crear Usuario')"
+                ></app-boton-personalizado>
+              </div>
+            }
+            
+            @case ('settings') {
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="card mb-4">
+                    <div class="card-header">
+                      <h5 class="card-title mb-0">🔧 Configuración General</h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="mb-3">
+                        <label class="form-label">🌐 Idioma del Sistema</label>
+                        <select class="form-select">
+                          <option>Español</option>
+                          <option>English</option>
+                        </select>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">🎨 Tema</label>
+                        <select class="form-select">
+                          <option>Claro</option>
+                          <option>Oscuro</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="col-md-6">
+                  <div class="card mb-4">
+                    <div class="card-header">
+                      <h5 class="card-title mb-0">🔔 Notificaciones</h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" checked id="emailNotif">
+                        <label class="form-check-label" for="emailNotf">
+                          📧 Notificaciones por email
+                        </label>
+                      </div>
+                      <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="pushNotif">
+                        <label class="form-check-label" for="pushNotif">
+                          📱 Notificaciones push
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="mb-3">
+                <app-boton-personalizado
+                  texto="💾 Guardar Cambios"
+                  variante="primary"
+                  (click)="performAction('Guardar Configuración')"
+                ></app-boton-personalizado>
+              </div>
+            }
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

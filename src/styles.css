@@ -1,1 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
+/* Importar Bootstrap (ya está en angular.json, pero esto es una alternativa) */
+/* @import '~bootstrap/dist/css/bootstrap.min.css'; */
+
+/* Estilos personalizados mínimos */
+
+
+/* Clase personalizada para el gradiente de fondo */
+.gradient-bg {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
